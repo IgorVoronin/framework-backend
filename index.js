@@ -8,7 +8,7 @@ const sequelize = require('./database/database');
 const cors = require('cors')
 const Category = require('./database/models/category');
 const Product = require('./database/models/product');
-const PORT = 3333;
+const PORT = process.env.PORT || 3333;
 
 Category.hasMany(Product);
 
@@ -29,17 +29,17 @@ app.use('/order', order);
 
 app.use(express.json());
 
-const start = async () =>{
-    try{
+const start = async () => {
+    try {
         await sequelize.sync().then(
-            result => {/*console.log(result) */},
+            result => {/*console.log(result) */ },
             err => console.log(err)
         );
-        
-        app.listen(PORT, ()=>{
+
+        app.listen(PORT, () => {
             console.log(`\n\nServer started on http://localhost:${PORT} port...`)
         })
-    }catch(err){
+    } catch (err) {
         console.log(err);
     }
 }
